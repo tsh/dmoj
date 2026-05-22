@@ -1,35 +1,37 @@
 #include <iostream>
 using namespace std;
 
-int prime[2000], total=0, n=10000;
+int primes[10000], n=10000, filled=0;
 
-bool isPrime(int val){
-    for (int i = 0; i < total; i++){
-        if (val % prime[i] == 0)
+bool isPrime(int num){
+    for (int i=0; i<filled; i++){
+        if (num % primes[i] == 0) 
             return false;
     }
     return true;
-}
+};
 
 int main(void){
-    for (int i = 2; i <=n; i++){
-        if (isPrime(i))
-            prime[total++] = i;
+    for (int i=2; i<=n; i++){
+        if (isPrime(i)){
+            primes[filled++] = i;
+        }
     }
 
     int m;
     cin >> m;
     while (m){
-        int ans=0;
-        for (int i=0; prime[i] <= m; i++){
-            int tmp = 0;
-            for (int j=i; tmp < m && j < 2000; j++){
-                tmp += prime[j];
-                if (tmp == m)
-                    ans += 1;
+        int res=0;
+        for (int i=0; primes[i]<=m; i++){
+            int total=0;
+            for (int j=i; j<filled && total <m; j++){
+                total += primes[j];
+                if (total == m)
+                    res += 1;
             }
         }
-        cout<<ans<<endl;
+        cout<<res<<endl;
         cin>>m;
     }
+    return 0;    
 }
